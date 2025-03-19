@@ -3,8 +3,7 @@ import time
 
 class Clock:
     def currentTime(self):
-        yield date.today()
-        yield time.localtime()
+        yield datetime.now()
         pass
 
     def getCurrentTime(self):

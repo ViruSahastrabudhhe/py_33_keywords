@@ -74,17 +74,22 @@ class UserInterface:
     def clockFunctions(self, clockChoice: str):
         if clockChoice.lower()=="a":
             self.clock.getCurrentTime()
+            return
         if clockChoice.lower()=="b":
             while True:
-                days = input("The date after how many days: ")
+                days = input("The date after how many days (empty input will return to clock): ")
 
+                if days==" ":
+                    break
+                
                 try:
                     daysParseInt = int(days)
                 except ValueError:
                     return None
                 
                 print(self.clock.getDate(daysParseInt))
-
+        return
+        
     def cameraChoices(self):
         while True:
             print("\nTake photos with the camera!")
@@ -100,6 +105,8 @@ class UserInterface:
     def cameraFunctions(self, camChoice: str):
         if camChoice.lower()=="a":
             self.cam.selfie()
+
+        return
 
     def calculatorChoices(self):
         while True:
@@ -188,6 +195,8 @@ class UserInterface:
 
         if calculatorNav.lower()=="e":
             self.calculatorHistory()
+
+        return
 
     def calculatorHistory(self):
         while True:
