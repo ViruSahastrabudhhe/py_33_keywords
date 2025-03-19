@@ -1,11 +1,18 @@
-from datetime import date
+from datetime import date, timedelta, datetime
 import time
 
 class Clock:
-    def getCurrentTime(self):
+    def currentTime(self):
         yield date.today()
         yield time.localtime()
         pass
 
-    # def setAlarm(self, hour, minute, second):
-        
+    def getCurrentTime(self):
+        global x
+        x=self.currentTime()
+        for z in x:
+            print(z)
+
+    def getDate(self, daysParseInt):
+        dateAfterXDays = (datetime.now() + timedelta(days=daysParseInt) ).strftime('%d-%m-%Y')
+        return dateAfterXDays

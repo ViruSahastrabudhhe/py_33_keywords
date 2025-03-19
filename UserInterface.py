@@ -1,6 +1,7 @@
 from Authentication import Authentication as auth
 from Calculator import Calculator as calc
 from Clock import Clock as clock
+from Camera import Camera as cam
 
 class UserInterface:
     def __init__(self):
@@ -8,6 +9,7 @@ class UserInterface:
         self.auth = auth()
         self.calc = calc()
         self.clock = clock()
+        self.cam = cam()
 
     def start(self):
         print("luke demerin shitty samsung phone simulator")
@@ -39,10 +41,10 @@ class UserInterface:
             navigationChoice = input("\nNavigation: ")
             if navigationChoice.lower() not in self.shutDown:
                 if navigationChoice=="1":
-                    print()
+                    self.clockChoices()
                     continue
                 elif navigationChoice=="2":
-                    print()
+                    self.cameraChoices()
                     continue
                 elif navigationChoice=="3":
                     self.calculatorChoices()
@@ -57,11 +59,47 @@ class UserInterface:
             raise Exception("Phone shut down!")
 
     def clockChoices(self):
-        print("\nChange time with the clock!")
-        print("A - Get current time")
-        print("B - Timer")
-        print("C - Stopwatch")
-        print("X - Return to main menu")
+        while True:
+            print("\nChange time with the clock!")
+            print("A - Get current time")
+            print("B - Date calculator")
+            print("X - Return to main menu")
+
+            clockChoice = input("\nClock navigation: ")
+            if clockChoice.lower()=="x":
+                break
+
+            self.clockFunctions(clockChoice)
+
+    def clockFunctions(self, clockChoice: str):
+        if clockChoice.lower()=="a":
+            self.clock.getCurrentTime()
+        if clockChoice.lower()=="b":
+            while True:
+                days = input("The date after how many days: ")
+
+                try:
+                    daysParseInt = int(days)
+                except ValueError:
+                    return None
+                
+                print(self.clock.getDate(daysParseInt))
+
+    def cameraChoices(self):
+        while True:
+            print("\nTake photos with the camera!")
+            print("A - Selfie")
+            print("X - Return to main menu")
+
+            camChoice = input("\nCamera navigation: ")
+            if camChoice.lower()=="x":
+                break
+
+            self.cameraFunctions(camChoice)
+
+    def cameraFunctions(self, camChoice: str):
+        if camChoice.lower()=="a":
+            self.cam.selfie()
 
     def calculatorChoices(self):
         while True:
@@ -170,11 +208,6 @@ class UserInterface:
                 self.calc.history = []
             else:
                 print("Invalid input!")
-
-    def clockGetCurrentTime(self):
-        x=self.clock.getCurrentTime()
-        for z in x:
-            print(z)
 
     def closeScreen(self):
         print("\nPhone screen turned off!")
